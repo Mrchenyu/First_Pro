@@ -1,6 +1,5 @@
 #ifndef _STUDENT_H_
 #define _STUDENT_H_
-#endif
 #define SLEN 20
 typedef struct student
 {
@@ -27,3 +26,4 @@ int MaxGrade(List p);
 int TotGrade(List);
 List Reverse(List P);
 double AverageGrade(List p);
+#endif
