@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 	List head;
 	char choice;
 	int find=0;
-	InitialList(&head); //传入指向指针的指针
+	InitialList(&head); //init pointer 
 	while((choice=menu())!='k')
 	{
 		switch (choice)
@@ -50,17 +50,17 @@ char menu(void)
 {
 	int ch;
 	puts("Enter your choice:");
-	puts("a) add a student         b)show list of students");
-	puts("c) numbers of students   d)find a student");
-	puts("e)delete a student       f)sort list of students");
-	puts("g)reverse student list   h)average grade of student");
-	puts("i)max grade of student   j)total grade of student");
-	puts("k)quit");
+	puts("a) add a student          b) show list of students");
+	puts("c) numbers of students    d) find a student");
+	puts("e) delete a student       f) sort list of students");
+	puts("g) reverse student list   h) average grade of student");
+	puts("i) max grade of student   j) total grade of student");
+	puts("k) quit");
 	while((ch=getchar())!=EOF)
 	{
-		while(getchar()!='\n')  //消除剩余的内容
+		while(getchar()!='\n')  //scan next character
 			continue;
-		ch=tolower(ch);  //将大写字母转换为小写字母
+		ch=tolower(ch);  //lower character
 		if(strchr("abrcdefghijk",ch)==NULL)
 			puts("Please enter an a,b,c,d,e,f,g or h:");
 		else

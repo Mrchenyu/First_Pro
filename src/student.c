@@ -5,11 +5,22 @@
 static char *s_gets(char *st,int n);
 static void showstudent(Student s);
 static List FindPre(List p,char *str);
+/*
+ * function name :InitalList
+ * function :initialize head pointer
+ * parameter :List *p
+*/
 void InitialList(List *p)
 {
-	*p=NULL; //初始化头指针
+	*p=NULL;
 }
-int Find(List p) //查找有无当前元素
+
+/*
+ * function name :Find
+ * function :search element in list
+ * parameter :List p
+ */ 
+int Find(List p)
 {
 	List current;
 	char str[SLEN];
@@ -30,7 +41,12 @@ int Find(List p) //查找有无当前元素
 	}
 	return 0;
 }
-static List FindPre(List p,char *str)  //查找前驱指针
+/*
+ * function name :FindPre
+ * function :find previous pointer of str
+ * parameter :List p, char *str
+ */
+static List FindPre(List p,char *str)
 {
 	List tmp;
 	tmp=p;
@@ -38,6 +54,11 @@ static List FindPre(List p,char *str)  //查找前驱指针
 		tmp=tmp->next;
 	return tmp;
 }
+/*
+ * function name :DeleteStu
+ * function :delete student list
+ * parameter :List p
+ */
 void DeleteStu(List *p)
 {
 	char temp[SLEN];
@@ -49,7 +70,7 @@ void DeleteStu(List *p)
 	pt1=*p;
 	if(pt1==NULL)
 		printf("list is null!\n");
-	else if(!strcmp(pt1->stu.name,temp)) //首元素为待删除的元素 无前驱指针
+	else if(!strcmp(pt1->stu.name,temp)) //if element is head no previous pointer
 	{
 		pt2=pt1;
 		*p=pt1->next;
@@ -58,7 +79,7 @@ void DeleteStu(List *p)
 	}
 	else
 	{
-		pt1=FindPre(pt1,temp);  //非首元素 故而需要前驱指针
+		pt1=FindPre(pt1,temp);  //not head need to find previous pointer
 		if(pt1->next==NULL)
 			printf("Don't exist %s!\n",temp);
 		else
@@ -70,6 +91,11 @@ void DeleteStu(List *p)
 		}
 	}
 }
+/*
+ * function name :ListStuCount
+ * function :list the total of student
+ * parameter :List p
+ */
 int ListStuCount(const List p)
 {
 	int total=0;
@@ -81,6 +107,11 @@ int ListStuCount(const List p)
 	}
 	return total;
 }
+/*
+ * function name :Traverse
+ * function :traverse the student list
+ * parameter :List p
+ */
 void Traverse(const List p)
 {
 	List current=p;
@@ -92,11 +123,21 @@ void Traverse(const List p)
 		current=current->next;
 	}
 }
+/*
+ * function name :showstudent
+ * function :show current studnet information
+ * parameter :Student s
+ */
 static void showstudent(Student s)
 {
 	printf("Name is %s,subject is %s,ID is %s,grade is %d.\n",s.name,s.subject,s.stuID,s.grade);
 }
-List SortList(List P)  //链表排序 根据学生的成绩排序
+/*
+ * function name :SortList
+ * function :sort the student list according to grade
+ * paramemter :List P
+ */
+List SortList(List P)
 {
 	List first,t,p,q;
 	if(P==NULL)
@@ -111,7 +152,7 @@ List SortList(List P)  //链表排序 根据学生的成绩排序
 		{
 			for(t=first,q=P;(q!=NULL)&&(q->stu.grade<t->stu.grade);p=q,q=q->next)
 				;
-			first=first->next; //无序表中节点离开 插入节点进入有序链表
+			first=first->next; //insert this node into sorted list
 			if(q==P)
 			{
 				t->next=P;
@@ -127,6 +168,11 @@ List SortList(List P)  //链表排序 根据学生的成绩排序
 	printf("We have sort list according to student's grade!!");
 	return P;
 }
+/*
+ * function name:AddStu
+ * function :Add studnet node 
+ * parameter :List *p
+ */
 void AddStu(List *p)
 {
 	List pt,current;
@@ -139,8 +185,8 @@ void AddStu(List *p)
 	s_gets(pt->stu.stuID,SLEN);
 	puts("Please enter students grade:");
 	scanf("%d",&(pt->stu.grade));
-	getchar(); //由于用scanf读取grade 故而留有一个换行字符
-	pt->next=NULL; //注意将next置为NULL
+	getchar(); //use scanf to read grade, there is '\n' at end of the string
+	pt->next=NULL; //put node of next to NULL
 	if(*p==NULL)
 	{
 		*p=pt;
@@ -155,6 +201,11 @@ void AddStu(List *p)
 		current->next=pt;
 	}
 }
+/*
+ * function name :DestroyList
+ * function :destroy the student list
+ * parameter :List *p
+ */
 void DestroyList(List *p)
 {
 	List current,tmp;
@@ -167,7 +218,12 @@ void DestroyList(List *p)
 	}
     *p=NULL;		
 }
-List Reverse(List P)  //用队列结构来反序
+/*
+ * function name :Reverse
+ * function : reverse the student list by using queue structure
+ * parameter :List p
+ */
+List Reverse(List P)
 {
 	List stack[100],tmp;
 	int i=0;
@@ -177,7 +233,7 @@ List Reverse(List P)  //用队列结构来反序
 	{
 		stack[i++]=tmp;
 		tmp=tmp->next;
-	} //退出循环时tmp=NULL
+	} //loop out tmp is equal to NULL
 	while(j<i)
 	{
 		stack[j]->next=tmp;
@@ -187,7 +243,12 @@ List Reverse(List P)  //用队列结构来反序
 	printf("Now the student list have been reversed!!");
 	return tmp;
 }
-int MaxGrade(List p) //计算最高分
+/*
+ * function name :MaxGrade
+ * function :calculate the max grade
+ * parameter :List p
+ */
+int MaxGrade(List p)
 {
 	List temp;
 	int max=0;
@@ -200,10 +261,15 @@ int MaxGrade(List p) //计算最高分
 	}
 	return max;
 }
-int TotGrade(List p) //计算总分
+/*
+ * function name :TotGrade
+ * function :calculate the total grade
+ * parameter :List p
+ */
+int TotGrade(List p)
 {
 	List temp;
-	int total=0; //初始化
+	int total=0; // initialize
 	temp=p;
 	while(temp)
 	{
@@ -212,10 +278,15 @@ int TotGrade(List p) //计算总分
 	}
 	return total;
 }
-double AverageGrade(List p) //计算均分
+/*
+ * function name :AvergeGrade
+ * function :calculate the average grade
+ * parameter :List p
+ */
+double AverageGrade(List p) 
 {
 	List temp;
-	int count=0;//统计人数
+	int count=0;//calculate the total number of student
 	double total=0;
 	temp=p;
 	while(temp)
@@ -226,7 +297,12 @@ double AverageGrade(List p) //计算均分
 	}
 	return (total/count);
 }
-static char *s_gets(char *st,int n) //读取一定长度的字符串
+/*
+ * function name :s_gets
+ * function :scan n bytes from stdin
+ * parameter :char *st, int n
+ */
+static char *s_gets(char *st,int n) 
 {
 	char *ret_val;
 	char *find;
